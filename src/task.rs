@@ -42,6 +42,7 @@ pub fn add_task(journal_path: PathBuf, task: Task) -> Result<()> {
     tasks.push(task);
     serde_json::to_writer(file, &tasks)?;
 
+    println!("Task added [{} task(s) to complete]", tasks.len());
     Ok(())
 }
 
@@ -64,6 +65,10 @@ pub fn complete_task(journal_path: PathBuf, task_position: usize) -> Result<()> 
 
     file.set_len(0)?;
     serde_json::to_writer(file, &tasks)?;
+    println!(
+        "Task complete and deleted [{} task(s) to complete]",
+        tasks.len()
+    );
     Ok(())
 }
 
